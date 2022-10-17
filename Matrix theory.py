@@ -66,9 +66,6 @@ def QR_decomposition(V):
 
 
 
-if __name__ == "__main__":
-    A = np.array([[1,2,3],[2,1,2],[1,2,1]],dtype=float) #Input by column vector
-    Q,R ,L= QR_decomposition(A)
 
     
 
