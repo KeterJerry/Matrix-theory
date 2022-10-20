@@ -1,3 +1,4 @@
+from ast import Delete
 import numpy as np
 import sympy as sp
 import fractions
@@ -76,14 +77,68 @@ def np_RREF(V):
         R = np.array(C.rref()[0].tolist())
         
     
-    return r
+    return R
+
+
+def Full_rank_decomposition(V):
+    if type(V) is not np.ndarray:
+        raise ValueError
+    else:
+        V_rref = np_RREF(np.copy(V))
+       
+        
+        V_index = np.array(np.where(V_rref == 1)).T
+        
+        
+        x_axis = V_index[:,0]
+        
+        element,repeat_index=[],[]
+        for i in range(0,len(x_axis)):
+            if x_axis[i] in element:
+                repeat_index.append(i)
+            else:
+                element.append(x_axis[i])
+        V_index = np.delete(V_index,repeat_index,axis=0)
+
+        
+
+
+
+
+   
+    print(V_index)
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+    R = 0
+
+
+
+
+    return R
+
+
+
+
 
 
 
 
 if __name__ == "__main__":
     A = np.array([[1,3,2,1,4],[2,6,1,0,7],[3,9,3,1,11]]) #Input by column vector
-    print(np_RREF(A))
+    #a = np.array([1,2,3,4,5,6,1,1,2,3])
+    #print(np.where(a == 1))
+    
+    Full_rank_decomposition(A)
+
 
     
 
