@@ -101,29 +101,10 @@ def Full_rank_decomposition(V):
         V_index = np.delete(V_index,repeat_index,axis=0)
 
         
+        B = V.T[V_index[:,1]].T
+        C = V_rref[V_index[:,0]]
 
-
-
-
-   
-    print(V_index)
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-    R = 0
-
-
-
-
-    return R
+    return B,C
 
 
 
@@ -137,7 +118,9 @@ if __name__ == "__main__":
     #a = np.array([1,2,3,4,5,6,1,1,2,3])
     #print(np.where(a == 1))
     
-    Full_rank_decomposition(A)
+    B,C=Full_rank_decomposition(A)
+    print(B)
+    print(C)
 
 
     
