@@ -1,6 +1,9 @@
 import numpy as np
+import sympy as sp
+import fractions
 
 np.set_printoptions(suppress=True)#Prohibition of Scientific notation
+np.set_printoptions(formatter={'all':lambda x: str(fractions.Fraction(x).limit_denominator())})#Limit the output result to a fraction
 
 def Unit_V(V):
     if type(V) is not np.ndarray:
@@ -65,7 +68,22 @@ def QR_decomposition(V):
     return Q,R,L
 
 
+def np_RREF(V):
+    if type(V) is not np.ndarray:
+        raise ValueError
+    else:
+        C = sp.Matrix(np.copy(V))
+        R = np.array(C.rref()[0].tolist())
+        
+    
+    return r
 
+
+
+
+if __name__ == "__main__":
+    A = np.array([[1,3,2,1,4],[2,6,1,0,7],[3,9,3,1,11]]) #Input by column vector
+    print(np_RREF(A))
 
     
 
