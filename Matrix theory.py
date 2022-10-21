@@ -1,7 +1,8 @@
-from ast import Delete
 import numpy as np
 import sympy as sp
 import fractions
+import scipy
+
 
 np.set_printoptions(suppress=True)#Prohibition of Scientific notation
 np.set_printoptions(formatter={'all':lambda x: str(fractions.Fraction(x).limit_denominator())})#Limit the output result to a fraction
@@ -107,21 +108,36 @@ def Full_rank_decomposition(V):
     return B,C
 
 
+def LU_decomposition(V):#This function is currently unavailable
+    if type(V) is not np.ndarray:
+        raise ValueError
+    else:
+        if V.shape[0] != V.shape[1]:
+            raise ValueError
+        else:
+            n = V.shape[0]
+            lu ,piv = scipy.linalg.lu_factor(np.copy(V), overwrite_a=False, check_finite=True)
+            #print(lu)
+            L = np.tril(lu,k=-1) + np.eye(n)
+            U = np.triu(lu)
+            
 
+
+
+    return L,U,piv
 
 
 
 
 
 if __name__ == "__main__":
-    A = np.array([[1,3,2,1,4],[2,6,1,0,7],[3,9,3,1,11]]) #Input by column vector
-    #a = np.array([1,2,3,4,5,6,1,1,2,3])
-    #print(np.where(a == 1))
+    A = np.array([[2,5,8,7],[5,2,2,8],[7,5,6,6],[5,4,4,8]]) #Input by column vector
+    #np.allclose()
     
-    B,C=Full_rank_decomposition(A)
-    print(B)
-    print(C)
+    B,C,piv=LU_decomposition(A)
 
-
+    print(np.matmul(B,C)[piv])
+    print(piv@B@C)
+    
     
 
