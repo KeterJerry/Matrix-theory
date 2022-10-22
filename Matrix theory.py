@@ -30,7 +30,7 @@ def Gram_Schmidt_Orthogonalization(V):
         c = 0
         for a in V.T:
             u = np.copy(a)
-            #print (u)
+            
             for i in range(0,c):
                 u -= (np.dot(Q[:,i].T,a)/np.dot(Q[:,i],Q[:,i]))*Q[:,i]
             Q[:,c] = u
@@ -55,15 +55,12 @@ def QR_decomposition(V):
         c = 0
         for a in U.T:
             R[c,c] = np.linalg.norm(a)
-            #print(R[c,c])
             c += 1
         c = 1
         
         for a in V.T:
             
             for i in range (0,c-1):
-                #print(i,c-1)
-                #print(np.dot(a,Q[:,i]))
                 R[i,c-1] = np.dot(a,Q[:,i])
             c += 1
   
@@ -86,13 +83,9 @@ def Full_rank_decomposition(V):
         raise ValueError
     else:
         V_rref = np_RREF(np.copy(V))
-       
-        
         V_index = np.array(np.where(V_rref == 1)).T
-        
-        
+
         x_axis = V_index[:,0]
-        
         element,repeat_index=[],[]
         for i in range(0,len(x_axis)):
             if x_axis[i] in element:
@@ -117,7 +110,6 @@ def LU_decomposition(V):#This function is currently unavailable
         else:
             n = V.shape[0]
             lu ,piv = scipy.linalg.lu_factor(np.copy(V), overwrite_a=False, check_finite=True)
-            #print(lu)
             L = np.tril(lu,k=-1) + np.eye(n)
             U = np.triu(lu)
             
