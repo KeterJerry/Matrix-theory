@@ -25,10 +25,11 @@ def Gram_Schmidt_Orthogonalization(V):
     if type(V) is not np.ndarray:
         raise ValueError
     else:
-        Q = np.zeros_like(V)
-        
+        A = np.copy(V)
+        Q = np.zeros_like(A)
+                
         c = 0
-        for a in V.T:
+        for a in A.T:
             u = np.copy(a)
             
             for i in range(0,c):
@@ -49,7 +50,7 @@ def QR_decomposition(V):
         else:
             L = False  
                        
-        U = Gram_Schmidt_Orthogonalization(V)
+        U = Gram_Schmidt_Orthogonalization(np.copy(V))
         Q = Unit_V(U)
         R = np.zeros_like(V)
         c = 0
@@ -123,13 +124,12 @@ def LU_decomposition(V):#This function is currently unavailable
 
 
 if __name__ == "__main__":
-    A = np.array([[2,5,8,7],[5,2,2,8],[7,5,6,6],[5,4,4,8]]) #Input by column vector
+    A = np.array([[0,4,1],[1,1,1],[0,3,2]],dtype=float) #Input by column vector
     #np.allclose()
-    
-    B,C,piv=LU_decomposition(A)
-
-    print(np.matmul(B,C)[piv])
-    print(piv@B@C)
-    
+    Q,R,L = QR_decomposition(A)
+    print(Q)
+    print(R)
+    B = Gram_Schmidt_Orthogonalization(A)
+    print(B)
     
 
