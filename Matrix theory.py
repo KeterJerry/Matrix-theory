@@ -5,7 +5,7 @@ import scipy
 
 
 np.set_printoptions(suppress=True)#Prohibition of Scientific notation
-np.set_printoptions(formatter={'all':lambda x: str(fractions.Fraction(x).limit_denominator())})#Limit the output result to a fraction
+#np.set_printoptions(formatter={'all':lambda x: str(fractions.Fraction(x).limit_denominator())})#Limit the output result to a fraction
 
 def Unit_V(V):
     if type(V) is not np.ndarray:
@@ -120,16 +120,35 @@ def LU_decomposition(V):#This function is currently unavailable
     return L,U,piv
 
 
+def Singular_Value_decomposition(V):#?
+    if type(V) is not np.ndarray:
+        raise ValueError
+    else:
+        U,S,Vh = np.linalg.svd(np.copy(V), full_matrices=True, compute_uv=True)
+        #eigenvalues ,eigenvectors   = np.linalg.eig(np.matmul(B,A))
+        A = np.zeros_like(V)
+        A[0:S.shape[0],0:S.shape[0]] += np.diag(S)
+
+        return U,A,Vh
+
+
+
+
+
+
+
+
+
+
 
 
 
 if __name__ == "__main__":
-    A = np.array([[0,4,1],[1,1,1],[0,3,2]],dtype=float) #Input by column vector
+    A = np.array([[2,3],[0,0],[0,0]],dtype=float) #Input by column vector
     #np.allclose()
-    Q,R,L = QR_decomposition(A)
-    print(Q)
-    print(R)
-    B = Gram_Schmidt_Orthogonalization(A)
-    print(B)
+    a,b,c = Singular_Value_decomposition(A)
+    print(np.matmul(np.matmul(a,b),c))
+
+  
     
 
